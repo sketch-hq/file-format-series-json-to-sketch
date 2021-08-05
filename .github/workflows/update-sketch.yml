@@ -1,4 +1,4 @@
-name: Generate Sketch Library from JSON file
+name: Update Sketch Library from JSON file
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           node-version: 14
       - name: Install dependencies
         run: yarn install
-      - name: Generate Sketch Library
+      - name: Update Sketch Library
         run: yarn start
       - name: Push changes in Sketch Library
         uses: actions-x/commit@v2
