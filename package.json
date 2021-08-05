@@ -9,7 +9,9 @@
     "@sketch-hq/sketch-file": "^1.0.5",
     "@sketch-hq/sketch-file-format": "^6.1.1",
     "@types/node": "^16.4.5",
+    "hex-rgb": "^4.3.0",
     "path": "^0.12.7",
+    "rgb-hex": "3.0.0",
     "uuid": "^8.3.2"
   },
   "scripts": {
