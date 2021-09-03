@@ -2,7 +2,7 @@ import { fromFile, toFile, SketchFile } from '@sketch-hq/sketch-file'
 import { resolve } from 'path'
 import hexRgb from 'hex-rgb'
 
-import colors from '../colors.json'
+import sourceColors from '../colors.json'
 
 const sketchDocumentPath = '../color-library.sketch'
 
@@ -11,19 +11,12 @@ fromFile(resolve(__dirname, sketchDocumentPath)).then(
     const document = parsedFile.contents.document
     if (!document.sharedSwatches) return
 
-    const sourceColors = Object.entries(colors).sort((a, b) =>
-      a[0].localeCompare(b[0], undefined, { numeric: true })
-    )
+    const targetColors = document.sharedSwatches.objects
 
-    const targetColors = document.sharedSwatches.objects.sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { numeric: true })
-    )
-
-    if (sourceColors.length !== targetColors.length) return
-
-    targetColors.forEach((swatch, index) => {
-      const colorName = sourceColors[index][0]
-      const colorValue = hexRgb(sourceColors[index][1])
+    Object.keys(sourceColors).forEach(colorName => {
+      const colorValue = hexRgb(sourceColors[colorName])
+      const swatch = targetColors.find(color => color.name === colorName)
+      if (!swatch) return
 
       swatch.name = colorName
       swatch.value.red = colorValue.red / 255
